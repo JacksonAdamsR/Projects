@@ -1,19 +1,54 @@
-import java.text.DecimalFormat;
+import java.util.Scanner;
 
 public class Tests {
-    public static void main(String[] args) {
-        double testScore1 = 88.2;
-        double testScore2 = 78.9;
-        double testScore3 = 97.6;
+    private double sumScores;
+    private int countScores;
+    private double average;
 
-        double average = (testScore1 + testScore2 + testScore3) / 3;
+    // Constructor
+    public Tests() {
+        this.sumScores = 0.0;
+        this.countScores = 0;
+        this.average = 0.0;
+    }
 
-        DecimalFormat df = new DecimalFormat("#.00");
+    // Method to get average, return type void
+    public void getAverage() {
+        Scanner scanner = new Scanner(System.in);
+        double score;
+        System.out.println("Enter test scores (enter -1 to quit): ");
+        
+        score = scanner.nextDouble();
+        while (score != -1) {
+            sumScores += score;
+            countScores++;
+            System.out.println("Enter test scores (enter -1 to quit): ");
+            score = scanner.nextDouble();
+        }
+        
+        if (countScores > 0) {
+            average = sumScores / countScores;
+        } else {
+            average = Double.NaN;
+        }
+    }
 
-        System.out.println("Test score 1: " + testScore1);
-        System.out.println("Test score 2: " + testScore2);
-        System.out.println("Test score 3: " + testScore3);
-        System.out.println("The average of 3 test scores is: " + df.format(average));
+    @Override
+    public String toString() {
+        if (countScores == 0) {
+            return "The average of the " + countScores + " scores entered is NaN.";
+        } else {
+            return String.format("The average of the %d scores entered is %.2f.", countScores, average);
+        }
+    }
+
+    public int getCountScores() {
+        return countScores;
+    }
+
+    public double getSumScores() {
+        return sumScores;
     }
 }
+
 
